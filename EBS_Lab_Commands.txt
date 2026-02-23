@@ -4,19 +4,21 @@ EBS LAB EXPERIMENT COMMANDS (Complete Flow)
   PART 1: Partition, Format, Mount, Permanent
   ---------------------------------------------
 
-lsblk sudo fdisk /dev/nvme1n1
+sudo su
+lsblk 
+fdisk /dev/nvme1n1
 
 Inside fdisk:
 
-n p Enter Enter Enter w
+m n p Enter Enter Enter w
 
-sudo partprobe
- lsblk 
-sudo mkfs -t ext4 /dev/nvme1n1p1 
-sudo mkdir -p /mnt/lucky 
-sudo mount /dev/nvme1n1p1 /mnt/lucky 
+partprobe
+lsblk 
+mkfs.xfs /dev/nvme1n1p1 
+mkdir /mnt/lucky 
+mount /dev/nvme1n1p1 /mnt/lucky 
 df -h 
-sudo blkid /dev/nvme1n1p1
+blkid /dev/nvme1n1p1
 
 -----Add UUID entry to /etc/fstab
 
@@ -24,10 +26,10 @@ sudo nano /etc/fstab
 
 Add line (replace UUID):
 
-UUID=your-uuid-value /mnt/lucky ext4 defaults,nofail 0 2
+UUID=your-uuid-value /mnt/lucky ext4 defaults,nofail 0 0
 
-sudo systemctl daemon-reload 
-sudo mount -a 
+////////////sudo systemctl daemon-reload 
+mount -a 
 df -h 
 sudo reboot
 df -h(reconnect)
@@ -52,7 +54,8 @@ instance
 ssh -i key.pem ubuntu@ 
 lsblk 
 sudo mkdir -p /mnt/lucky 
-sudo mount /dev/nvme1n1p1 /mnt/lucky df -h
+sudo mount /dev/nvme1n1p1 /mnt/lucky 
+df -h
 
 NOTE: Do NOT run mkfs again after reattaching, otherwise data will be
 erased.
