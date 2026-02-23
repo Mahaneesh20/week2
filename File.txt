@@ -120,7 +120,7 @@ Launch instance:
 
 Public EC2 → Select Public Subnet
 
-Private EC2 → Select Private Subnet
+Private EC2 → Select Private Subnet add mysql/aurora
 
 Attach correct Security Group.
 
