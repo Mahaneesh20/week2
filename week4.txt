@@ -1,0 +1,277 @@
+PART 1: Creating an S3 Bucket & Uploading Object with Public Access
+Step 1: Open S3 Service
+
+Login to AWS Management Console
+
+Click Services
+
+Select Amazon S3
+
+Click Create bucket
+
+Step 2: Bucket Configuration
+
+Enter Bucket name (Example: my-public-bucket-123)
+
+Select Region (nearest region)
+
+Scroll down to Block Public Access settings
+
+Step 3: Disable Block Public Access (VERY IMPORTANT)
+
+❌ Uncheck Block all public access
+
+Make sure all 4 options are unchecked
+
+✔ Check I acknowledge that this bucket will become public
+
+Click Create bucket
+
+✔ Bucket created successfully
+
+Step 4: Enable Bucket-Level Public Access (ACL)
+
+Open the bucket
+
+Go to Permissions tab
+
+Scroll to Access Control List (ACL)
+
+Click Edit
+
+Under Public access → Everyone
+
+✔ Select Read
+
+Click Save changes
+
+✔ Bucket-level public access enabled
+
+Step 5: Upload Object
+
+Go to Objects tab
+
+Click Upload
+
+Click Add files
+
+Select file (example: image.jpg)
+
+Click Upload
+
+✔ File uploaded
+
+Step 6: Enable Object-Level Public Access
+
+Click uploaded object
+
+Go to Permissions
+
+Scroll to Access Control List (ACL)
+
+Click Edit
+
+Under Everyone
+
+✔ Select Read
+
+Click Save changes
+
+Step 7: Verify Public Access
+
+Copy Object URL
+
+Open in Incognito browser
+
+✔ File should open without login
+
+🔹 PART 2: S3 Versioning
+What is Versioning?
+
+Versioning in Amazon S3 keeps multiple versions of the same object.
+
+Step 1: Enable Versioning
+
+Open S3
+
+Select bucket
+
+Go to Properties
+
+Scroll to Bucket Versioning
+
+Click Edit
+
+Select Enable
+
+Click Save changes
+
+✔ Versioning enabled
+
+Step 2: Upload File
+
+Upload report.pdf
+
+✔ Version ID automatically generated
+
+Step 3: Re-upload Same File
+
+Upload report.pdf again
+
+✔ Old version preserved
+✔ New version becomes current
+
+Step 4: Delete Object
+
+Click Delete
+
+✔ Delete Marker created
+✔ Old versions still available
+✔ Can restore anytime
+
+🔹 PART 3: Cross-Region Replication (CRR)
+What is CRR?
+
+CRR replicates data between different AWS regions.
+
+Prerequisites (VERY IMPORTANT)
+
+✔ Versioning enabled on both buckets
+✔ Buckets in different regions
+
+Step 1: Create Destination Bucket
+
+Go to S3 → Create bucket
+
+Enter name: dest-crr-bucket
+
+Select different region
+
+Create bucket
+
+Enable Versioning
+
+Step 2: Create Replication Rule
+
+Open Source bucket
+
+Go to Management tab
+
+Click Replication rules
+
+Click Create replication rule
+
+Step 3: Configure Rule
+
+Rule name: academy-crr-rule
+
+Status: Enabled
+
+Apply to: All objects
+
+Step 4: Choose Destination
+
+Select Another bucket
+
+Choose destination bucket
+
+Confirm region is different
+
+Select Use AWS-managed role
+
+Click Save
+
+✔ Replication active
+
+Step 5: Test Replication
+
+Upload image.png to source bucket
+
+Open destination bucket
+
+✔ Object appears automatically
+
+✔ Version ID present
+
+✔ CRR working successfully
+
+🔹 PART 4: Static Website Hosting in S3
+Step 1: Create Bucket
+
+Create new bucket (Example: my-static-site-bucket-123)
+
+Disable Block Public Access
+
+Acknowledge warning
+
+Create bucket
+
+Step 2: Upload Website Files
+
+Upload:
+
+index.html
+
+error.html
+
+Step 3: Enable Static Website Hosting
+
+Go to Properties
+
+Scroll to Static website hosting
+
+Click Edit
+
+Select Enable
+
+Choose Host a static website
+
+Enter:
+
+Index document → index.html
+
+Error document → error.html
+
+Click Save
+
+Step 4: Enable Bucket ACL
+
+Go to Permissions
+
+Edit ACL
+
+Under Everyone
+
+✔ Select Read
+
+Save changes
+
+Step 5: Enable Object ACL (For Both Files)
+
+Repeat for:
+
+index.html
+
+error.html
+
+Steps:
+
+Open object
+
+Permissions → ACL
+
+Edit
+
+✔ Read for Everyone
+
+Save
+
+Step 6: Access Website
+
+Go to Properties
+
+Scroll to Static website hosting
+
+Copy Website endpoint
+
+Open in browser
